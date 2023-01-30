@@ -117,6 +117,10 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func loginButtonTapped() {
+        
+        emailField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        
         guard
             let email = emailField.text,
             let password = passwordField.text,
