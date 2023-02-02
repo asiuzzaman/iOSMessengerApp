@@ -22,6 +22,9 @@ class RegisterViewController: UIViewController {
         imageView.image = UIImage(systemName: "person")
         imageView.tintColor = .gray
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
         return imageView
     }()
     
@@ -126,7 +129,7 @@ class RegisterViewController: UIViewController {
     }
     
     @objc private func didTapChangeProfilePic() {
-        print("Change profile pic")
+        presentPhotoActionSheet()
     }
     
     override func viewDidLayoutSubviews() {
@@ -138,6 +141,7 @@ class RegisterViewController: UIViewController {
                                  y: 20,
                                  width: size,
                                  height: size)
+        imageView.layer.cornerRadius = imageView.width/2.0
         
         emailField.frame = CGRect(x: 30,
                                   y: imageView.bottom + 10,
@@ -216,4 +220,62 @@ extension RegisterViewController : UITextFieldDelegate {
         return true
     }
     
+}
+
+extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func presentPhotoActionSheet() {
+        let actionSheet = UIAlertController(title: "Profile Picture",
+                                            message: "Would you like to select profile picture?", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancle",
+                                            style: .cancel,
+                                            handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Take photo",
+                                            style: .default,
+                                            handler: { [weak self] _ in
+            self?.presentCamera()
+        } ))
+        actionSheet.addAction(UIAlertAction(title: "Choose Photo",
+                                            style: .default,
+                                            handler: { [weak self] _ in
+            self?.presentPhotoPicker()
+        }))
+        
+        present(actionSheet, animated: true)
+        
+    }
+    
+    func presentPhotoPicker() {
+        print("present photopicker")
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+    
+    func presentCamera() {
+        print("present presentCamera")
+        
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            print("Not found selecte image")
+            return
+        }
+        self.imageView.image = selectedImage
+        //print("Information from photo-Picker: \(info)")
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
 }
