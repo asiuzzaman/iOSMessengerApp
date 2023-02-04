@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		150073D4298EDA62008DA9F8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 150073D3298EDA62008DA9F8 /* GoogleService-Info.plist */; };
 		1521E8FC2986DB6D00CBCD52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1521E8FB2986DB6D00CBCD52 /* AppDelegate.swift */; };
 		1521E8FE2986DB6D00CBCD52 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1521E8FD2986DB6D00CBCD52 /* SceneDelegate.swift */; };
 		1521E9002986DB6D00CBCD52 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1521E8FF2986DB6D00CBCD52 /* ConversationViewController.swift */; };
@@ -23,6 +24,7 @@
 		1521E93A2986E9AE00CBCD52 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1521E9392986E9AE00CBCD52 /* NewConversationViewController.swift */; };
 		1521E93C2986E9DF00CBCD52 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1521E93B2986E9DF00CBCD52 /* ProfileViewController.swift */; };
 		1521E9402986FCAC00CBCD52 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1521E93F2986FCAC00CBCD52 /* Extensions.swift */; };
+		59DC6A81E6287675A2462528 /* Pods_MyiOSMesserger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2B1A2CD35E961A99FE6F80 /* Pods_MyiOSMesserger.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E2B1A2CD35E961A99FE6F80 /* Pods_MyiOSMesserger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyiOSMesserger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		150073D3298EDA62008DA9F8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1521E8F82986DB6D00CBCD52 /* MyiOSMesserger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyiOSMesserger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1521E8FB2986DB6D00CBCD52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1521E8FD2986DB6D00CBCD52 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 		1521E9392986E9AE00CBCD52 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		1521E93B2986E9DF00CBCD52 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1521E93F2986FCAC00CBCD52 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4971D69247F2BD2B9D88B619 /* Pods-MyiOSMesserger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyiOSMesserger.debug.xcconfig"; path = "Target Support Files/Pods-MyiOSMesserger/Pods-MyiOSMesserger.debug.xcconfig"; sourceTree = "<group>"; };
+		FCF7D3FE8A161F9D6E933F14 /* Pods-MyiOSMesserger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyiOSMesserger.release.xcconfig"; path = "Target Support Files/Pods-MyiOSMesserger/Pods-MyiOSMesserger.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59DC6A81E6287675A2462528 /* Pods_MyiOSMesserger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +104,8 @@
 				1521E9112986DB6F00CBCD52 /* MyiOSMessergerTests */,
 				1521E91B2986DB6F00CBCD52 /* MyiOSMessergerUITests */,
 				1521E8F92986DB6D00CBCD52 /* Products */,
+				CCA6E6C29C1F4A624ED010BD /* Pods */,
+				FEBAD75DF1DA0D6986B3BEB3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,6 +122,7 @@
 		1521E8FA2986DB6D00CBCD52 /* MyiOSMesserger */ = {
 			isa = PBXGroup;
 			children = (
+				150073D3298EDA62008DA9F8 /* GoogleService-Info.plist */,
 				1521E92F2986E5FC00CBCD52 /* Resources */,
 				1521E92E2986E5D800CBCD52 /* ViewModels */,
 				1521E92D2986E5B500CBCD52 /* Models */,
@@ -204,6 +214,23 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		CCA6E6C29C1F4A624ED010BD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4971D69247F2BD2B9D88B619 /* Pods-MyiOSMesserger.debug.xcconfig */,
+				FCF7D3FE8A161F9D6E933F14 /* Pods-MyiOSMesserger.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FEBAD75DF1DA0D6986B3BEB3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E2B1A2CD35E961A99FE6F80 /* Pods_MyiOSMesserger.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -211,9 +238,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1521E9222986DB6F00CBCD52 /* Build configuration list for PBXNativeTarget "MyiOSMesserger" */;
 			buildPhases = (
+				9E51C95A301BCB0E55D0B98D /* [CP] Check Pods Manifest.lock */,
 				1521E8F42986DB6D00CBCD52 /* Sources */,
 				1521E8F52986DB6D00CBCD52 /* Frameworks */,
 				1521E8F62986DB6D00CBCD52 /* Resources */,
+				9D3B07E68C40E136009EB0B9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -309,6 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1521E9082986DB6F00CBCD52 /* LaunchScreen.storyboard in Resources */,
+				150073D4298EDA62008DA9F8 /* GoogleService-Info.plist in Resources */,
 				1521E9052986DB6F00CBCD52 /* Assets.xcassets in Resources */,
 				1521E9032986DB6D00CBCD52 /* Main.storyboard in Resources */,
 			);
@@ -329,6 +359,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9D3B07E68C40E136009EB0B9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyiOSMesserger/Pods-MyiOSMesserger-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyiOSMesserger/Pods-MyiOSMesserger-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyiOSMesserger/Pods-MyiOSMesserger-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E51C95A301BCB0E55D0B98D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyiOSMesserger-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1521E8F42986DB6D00CBCD52 /* Sources */ = {
@@ -516,6 +588,7 @@
 		};
 		1521E9232986DB6F00CBCD52 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4971D69247F2BD2B9D88B619 /* Pods-MyiOSMesserger.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -550,6 +623,7 @@
 		};
 		1521E9242986DB6F00CBCD52 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCF7D3FE8A161F9D6E933F14 /* Pods-MyiOSMesserger.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
