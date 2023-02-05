@@ -152,23 +152,23 @@ class RegisterViewController: UIViewController {
         lastName.frame = CGRect(x: 30,
                                   y: firstName.bottom + 10,
                                   width: scrollView.width - 60,
-                                 height: 52)
+                                height: 52)
         
         emailField.frame = CGRect(x: 30,
                                   y: lastName.bottom + 10,
                                   width: scrollView.width - 60,
-                                 height: 52)
+                                  height: 52)
         
         passwordField.frame = CGRect(x: 30,
-                                  y: emailField.bottom + 10,
-                                  width: scrollView.width - 60,
-                                 height: 52)
+                                     y: emailField.bottom + 10,
+                                     width: scrollView.width - 60,
+                                     height: 52)
         registerButton.frame = CGRect(x: 30,
-                                  y: passwordField.bottom + 10,
-                                  width: scrollView.width - 60,
-                                 height: 52)
+                                      y: passwordField.bottom + 10,
+                                      width: scrollView.width - 60,
+                                      height: 52)
     }
-     
+    
     @objc private func didTapRegister() {
         let vc = RegisterViewController()
         vc.title = "Create Account"
@@ -197,25 +197,42 @@ class RegisterViewController: UIViewController {
             return
         }
         
-        // Firebase login
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password , completion: { [weak self] authResult , error in
+        DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in
             
             guard let strongSelf = self else {
                 return
             }
-            guard let result = authResult, error == nil  else {
-                print("Error occure when registering")
+            
+            guard !exists else {
+                print("User already exists")
+                strongSelf.alertUserLoginError(message: "This user is already exists")
                 return
             }
             
-            print("AuthUsername: \(result.user.displayName)")
-            strongSelf.navigationController?.dismiss(animated: true)
+            // Firebase login
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password , completion: { authResult , error in
+                
+                guard authResult != nil, error == nil  else {
+                    print("Error occure when registering")
+                    return
+                }
+                
+                DatabaseManager
+                    .shared
+                    .insertDatabase(with: ChatAppUser(firstName: firstName,
+                                                      lastName: lastName,
+                                                      emailAddress: email))
+                
+                strongSelf.navigationController?.dismiss(animated: true)
+                
+            })
             
         })
+        
     }
     
-    func alertUserLoginError() {
-        let alert = UIAlertController(title: "Woops", message: "Please enter all information Correctly", preferredStyle: .alert)
+    func alertUserLoginError(message: String = "Please enter all information Correctly") {
+        let alert = UIAlertController(title: "Woops", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
         present(alert, animated: true)
     }
