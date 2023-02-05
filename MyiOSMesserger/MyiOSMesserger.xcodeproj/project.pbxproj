@@ -24,6 +24,7 @@
 		1521E93A2986E9AE00CBCD52 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1521E9392986E9AE00CBCD52 /* NewConversationViewController.swift */; };
 		1521E93C2986E9DF00CBCD52 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1521E93B2986E9DF00CBCD52 /* ProfileViewController.swift */; };
 		1521E9402986FCAC00CBCD52 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1521E93F2986FCAC00CBCD52 /* Extensions.swift */; };
+		158F640829900B9100EA4FBD /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158F640729900B9100EA4FBD /* DatabaseManager.swift */; };
 		59DC6A81E6287675A2462528 /* Pods_MyiOSMesserger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2B1A2CD35E961A99FE6F80 /* Pods_MyiOSMesserger.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		1521E9392986E9AE00CBCD52 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		1521E93B2986E9DF00CBCD52 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1521E93F2986FCAC00CBCD52 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		158F640729900B9100EA4FBD /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		4971D69247F2BD2B9D88B619 /* Pods-MyiOSMesserger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyiOSMesserger.debug.xcconfig"; path = "Target Support Files/Pods-MyiOSMesserger/Pods-MyiOSMesserger.debug.xcconfig"; sourceTree = "<group>"; };
 		FCF7D3FE8A161F9D6E933F14 /* Pods-MyiOSMesserger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyiOSMesserger.release.xcconfig"; path = "Target Support Files/Pods-MyiOSMesserger/Pods-MyiOSMesserger.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,6 +194,7 @@
 				1521E8FB2986DB6D00CBCD52 /* AppDelegate.swift */,
 				1521E8FD2986DB6D00CBCD52 /* SceneDelegate.swift */,
 				1521E93F2986FCAC00CBCD52 /* Extensions.swift */,
+				158F640729900B9100EA4FBD /* DatabaseManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1521E9322986E8FD00CBCD52 /* LoginViewController.swift in Sources */,
+				158F640829900B9100EA4FBD /* DatabaseManager.swift in Sources */,
 				1521E9342986E92F00CBCD52 /* RegisterViewController.swift in Sources */,
 				1521E93A2986E9AE00CBCD52 /* NewConversationViewController.swift in Sources */,
 				1521E9002986DB6D00CBCD52 /* ConversationViewController.swift in Sources */,
