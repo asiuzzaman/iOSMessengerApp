@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Conversation View Controller-->
+        <!--Chats-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ConversationViewController" customModule="MyiOSMesserger" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,7 +18,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="emm-Nd-9Dp"/>
+                    <navigationItem key="navigationItem" title="Chats" id="emm-Nd-9Dp"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -30,8 +30,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sHq-Ip-za2" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Chats" id="B3t-Qg-u9t"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="axo-ra-ZwJ">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="axo-ra-ZwJ">
+                        <rect key="frame" x="0.0" y="59" width="393" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -67,8 +67,8 @@
             <objects>
                 <navigationController id="lWt-lo-jTh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" id="8bh-KJ-FIJ"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5G9-wl-IO5">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="5G9-wl-IO5">
+                        <rect key="frame" x="0.0" y="59" width="393" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -79,17 +79,17 @@
             </objects>
             <point key="canvasLocation" x="2146" y="416"/>
         </scene>
-        <!--View Controller-->
+        <!--Profile-->
         <scene sceneID="YT7-e5-hBk">
             <objects>
-                <viewController id="J3g-RT-cUE" sceneMemberID="viewController">
+                <viewController id="J3g-RT-cUE" customClass="ProfileViewController" customModule="MyiOSMesserger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ER3-IC-Rf5">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="y0m-Wa-QCu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="9rU-uj-2eS"/>
+                    <navigationItem key="navigationItem" title="Profile" id="9rU-uj-2eS"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Di0-Mo-H9Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
