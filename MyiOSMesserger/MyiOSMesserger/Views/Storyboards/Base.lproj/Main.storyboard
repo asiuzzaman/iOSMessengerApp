@@ -24,11 +24,11 @@
             </objects>
             <point key="canvasLocation" x="723" y="1072"/>
         </scene>
-        <!--Item-->
+        <!--Chats-->
         <scene sceneID="gBs-gc-kvd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sHq-Ip-za2" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="B3t-Qg-u9t"/>
+                    <tabBarItem key="tabBarItem" title="Chats" id="B3t-Qg-u9t"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="axo-ra-ZwJ">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -49,6 +49,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="87z-SA-VGT" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wOf-gK-Ib7">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -61,11 +62,11 @@
             </objects>
             <point key="canvasLocation" x="1618" y="-291"/>
         </scene>
-        <!--Item-->
+        <!--Profile-->
         <scene sceneID="X5d-9D-KUO">
             <objects>
                 <navigationController id="lWt-lo-jTh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="8bh-KJ-FIJ"/>
+                    <tabBarItem key="tabBarItem" title="Profile" id="8bh-KJ-FIJ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5G9-wl-IO5">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
