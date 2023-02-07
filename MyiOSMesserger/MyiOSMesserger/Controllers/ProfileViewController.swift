@@ -38,7 +38,17 @@ extension ProfileViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let actionSheet = UIAlertController(title: "" , message: "", preferredStyle: .actionSheet)
         
+        actionSheet.addAction(UIAlertAction(title: "LogOut", style: .destructive, handler: { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.signOutAction()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(actionSheet,animated: true)
+    }
+    
+    func signOutAction() {
         do {
             try FirebaseAuth.Auth.auth().signOut()
             let vc = LoginViewController()
@@ -50,8 +60,6 @@ extension ProfileViewController: UITableViewDataSource {
             print("Failed to log out")
         }
     }
-    
-  
     
     
 }
