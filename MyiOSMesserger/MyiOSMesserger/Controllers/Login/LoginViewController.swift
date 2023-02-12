@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
     
@@ -73,6 +74,8 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    private let googleLoginButton = GIDSignInButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Login"
@@ -93,6 +96,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
         scrollView.addSubview(facebookLoginButton)
+        scrollView.addSubview(googleLoginButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -124,7 +128,10 @@ class LoginViewController: UIViewController {
                                   width: scrollView.width - 60,
                                  height: 52)
         
-        facebookLoginButton.frame.origin.y = loginButton.bottom + 20
+        googleLoginButton.frame = CGRect(x: 30,
+                                  y: facebookLoginButton.bottom + 10,
+                                  width: scrollView.width - 60,
+                                 height: 52)
     }
      
     @objc private func didTapRegister() {
