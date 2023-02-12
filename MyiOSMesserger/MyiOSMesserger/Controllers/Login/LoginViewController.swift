@@ -67,6 +67,12 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    private let facebookLoginButton: FBLoginButton = {
+        let button = FBLoginButton()
+        button.permissions = ["email", "public_profile"]
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Login"
@@ -78,6 +84,7 @@ class LoginViewController: UIViewController {
         
         emailField.delegate = self
         passwordField.delegate = self
+        facebookLoginButton.delegate = self
         
         // Add subview
         view.addSubview(scrollView)
@@ -85,6 +92,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
+        scrollView.addSubview(facebookLoginButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -110,6 +118,13 @@ class LoginViewController: UIViewController {
                                   y: passwordField.bottom + 10,
                                   width: scrollView.width - 60,
                                  height: 52)
+        
+        facebookLoginButton.frame = CGRect(x: 30,
+                                  y: loginButton.bottom + 10,
+                                  width: scrollView.width - 60,
+                                 height: 52)
+        
+        facebookLoginButton.frame.origin.y = loginButton.bottom + 20
     }
      
     @objc private func didTapRegister() {
@@ -191,4 +206,85 @@ extension LoginViewController {
             toastLabel.removeFromSuperview()
         })
     }
+}
+extension LoginViewController : LoginButtonDelegate {
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
+        
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginKit.FBLoginButton, didCompleteWith result: FBSDKLoginKit.LoginManagerLoginResult?, error: Error?) {
+        
+        guard let token = result?.token?.tokenString else {
+            print("User failed to login with facebook")
+            return
+        }
+        
+        let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
+                                                         parameters: ["fields" : "email, name"],
+                                                         tokenString: token,
+                                                         version: nil,
+                                                         httpMethod: .get)
+        
+        facebookRequest.start(completion: { _, result, error in
+            guard let result = result as? [String: Any], error == nil else {
+                print("Failed to make facebook login request")
+                return
+            }
+            print( "The graph request result is: \(result)")
+            
+            guard
+                let userName = result["name"] as? String,
+                let userEmail = result["email"] as? String
+            else {
+                print("Failed to get email and username")
+                return
+            }
+            
+            let nameComponents = userName.components(separatedBy: " ")
+            
+            guard nameComponents.count == 2 else {
+                print("Name is not dual")
+                return
+            }
+            let firstName = nameComponents[0]
+            let lastName = nameComponents[1]
+            
+            DatabaseManager.shared.userExists(with: userEmail, completion: { exists in
+                
+                if !exists {
+                    DatabaseManager
+                        .shared
+                        .insertDatabase(
+                            with: ChatAppUser(
+                            firstName: firstName,
+                            lastName: lastName,
+                            emailAddress: userEmail
+                        ))
+                }
+            })
+            
+            
+            let credential = FacebookAuthProvider.credential(withAccessToken: token)
+            
+            FirebaseAuth.Auth.auth().signIn(with: credential, completion: { [weak self] authResult, error in
+                guard let self else { return }
+                
+                guard authResult != nil , error == nil else {
+                    if (error != nil) {
+                        print("Facebook credential failed, MFA needed so Error:  \(String(describing: error))")
+                    }
+                        return
+                }
+                
+                print ("Successfully logged in user")
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            } )
+            
+        })
+        
+        
+    }
+    
+    
 }
