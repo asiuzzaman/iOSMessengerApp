@@ -9,6 +9,7 @@ import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
 import GoogleSignIn
+import FirebaseCore
 
 class LoginViewController: UIViewController {
     
@@ -76,14 +77,27 @@ class LoginViewController: UIViewController {
     
     private let googleLoginButton = GIDSignInButton()
     
+    private var loginObserver: NSObjectProtocol?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Login"
         view.backgroundColor = .white
         
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: { [weak self] _ in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.navigationController?.dismiss(animated: true)
+        })
+        
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
         
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        
+        googleLoginButton.addTarget(self, action: #selector(googleLoginButtonTapped), for: .touchUpInside)
         
         emailField.delegate = self
         passwordField.delegate = self
@@ -99,6 +113,11 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(googleLoginButton)
     }
     
+    deinit {
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollView.frame = view.bounds
@@ -172,6 +191,128 @@ class LoginViewController: UIViewController {
         })
     }
     
+    @objc private func googleLoginButtonTapped() {
+        
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+
+        GIDSignIn.sharedInstance.configuration = config
+        // Start the sign in flow!
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self]  user, error in
+
+          if let error = error {
+             print("Catch error while signin: \(error)")
+            return
+          }
+            
+            guard let email = user?.user.profile else {
+                print("Can't fetch email for google signin")
+                return
+            }
+            
+            self.insertIntoDatabase(GIDProfile: email)
+            
+            guard
+                let idToken = user?.user.idToken?.tokenString,
+                let accessToken = user?.user.accessToken.tokenString else {
+                print("Get idToken and access token")
+                return
+            }
+
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+            authenticateWithFirebase(credential: credential)
+            
+            self.navigationController?.dismiss(animated: true, completion: nil)
+            
+        }
+        
+    }
+    
+    func authenticateWithFirebase(credential: AuthCredential) {
+        
+        Auth.auth().signIn(with: credential) { authResult, error in
+//            if let error = error {
+//                let authError = error as NSError
+//              if authError.code == AuthErrorCode.secondFactorRequired.rawValue {
+//                // The user is a multi-factor user. Second factor challenge is required.
+//                let resolver = authError
+//                  .userInfo[AuthErrorUserInfoMultiFactorResolverKey] as! MultiFactorResolver
+//                var displayNameString = ""
+//                for tmpFactorInfo in resolver.hints {
+//                  displayNameString += tmpFactorInfo.displayName ?? ""
+//                  displayNameString += " "
+//                }
+////                self.showTextInputPrompt(
+////                  withMessage: "Select factor to sign in\n\(displayNameString)",
+////                  completionBlock: { userPressedOK, displayName in
+////                    var selectedHint: PhoneMultiFactorInfo?
+////                    for tmpFactorInfo in resolver.hints {
+////                      if displayName == tmpFactorInfo.displayName {
+////                        selectedHint = tmpFactorInfo as? PhoneMultiFactorInfo
+////                      }
+////                    }
+////                    PhoneAuthProvider.provider()
+////                      .verifyPhoneNumber(with: selectedHint!, uiDelegate: nil,
+////                                         multiFactorSession: resolver
+////                                           .session) { verificationID, error in
+////                        if error != nil {
+////                          print(
+////                            "Multi factor start sign in failed. Error: \(error.debugDescription)"
+////                          )
+////                        } else {
+////                          self.showTextInputPrompt(
+////                            withMessage: "Verification code for \(selectedHint?.displayName ?? "")",
+////                            completionBlock: { userPressedOK, verificationCode in
+////                              let credential: PhoneAuthCredential? = PhoneAuthProvider.provider()
+////                                .credential(withVerificationID: verificationID!,
+////                                            verificationCode: verificationCode!)
+////                              let assertion: MultiFactorAssertion? = PhoneMultiFactorGenerator
+////                                .assertion(with: credential!)
+////                              resolver.resolveSignIn(with: assertion!) { authResult, error in
+////                                if error != nil {
+////                                  print(
+////                                    "Multi factor finanlize sign in failed. Error: \(error.debugDescription)"
+////                                  )
+////                                } else {
+////                                  self.navigationController?.popViewController(animated: true)
+////                                }
+////                              }
+////                            }
+////                          )
+////                        }
+////                      }
+////                  }
+////                )
+//              } else {
+//                self.showMessagePrompt(error.localizedDescription)
+//                return
+//              }
+//              // ...
+//              return
+//            }
+            // User is signed in
+            // ...
+            FirebaseAuth.Auth.auth().signIn(with: credential, completion: { authResult, error in
+                
+                guard let _  = authResult, error == nil else {
+                    if let error = error {
+                        print("Error while signin into google : \(error)")
+                    }
+                    return
+                }
+                
+                print("User finally signin with google with firebase")
+                
+                NotificationCenter.default.post(name: .didLogInNotification, object: nil)
+            })
+            print("User finally signin with google")
+            
+        }
+        
+    }
+    
     func alertUserLoginError() {
         let alert = UIAlertController(title: "Woops", message: "Please enter all information Correctly", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
@@ -233,7 +374,10 @@ extension LoginViewController : LoginButtonDelegate {
                                                          version: nil,
                                                          httpMethod: .get)
         
-        facebookRequest.start(completion: { _, result, error in
+        facebookRequest.start(completion: { [weak self]_, result, error in
+            
+           // guard let strongSelf = self else { return }
+            
             guard let result = result as? [String: Any], error == nil else {
                 print("Failed to make facebook login request")
                 return
@@ -294,4 +438,31 @@ extension LoginViewController : LoginButtonDelegate {
     }
     
     
+}
+
+extension LoginViewController {
+    func insertIntoDatabase(GIDProfile: GIDProfileData) {
+        
+        DatabaseManager.shared.userExists(with: GIDProfile.email, completion: { exists in
+            
+            guard
+                let firstName = GIDProfile.givenName,
+                let lastName = GIDProfile.familyName
+            else {
+                print("First or last name is nil")
+                return
+            }
+            
+            if !exists {
+                DatabaseManager
+                    .shared
+                    .insertDatabase(
+                        with: ChatAppUser(
+                            firstName: firstName,
+                            lastName: lastName,
+                            emailAddress: GIDProfile.email
+                    ))
+            }
+        })
+    }
 }
